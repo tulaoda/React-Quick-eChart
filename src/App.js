@@ -1,11 +1,12 @@
-import React, { Component} from 'react';
-import ChartSettingBoard from './components/ChartSettingBoard'
+import React, { Component } from "react";
+import ChartSettingBoard from "./components/ChartSettingBoard";
 
 class App extends Component {
     render() {
-        return (<div>
-            <ChartSettingBoard />
-        </div>
+        return (
+            <div>
+                <ChartSettingBoard />
+            </div>
         );
     }
 }

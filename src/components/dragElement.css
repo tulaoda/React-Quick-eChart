@@ -1,4 +1,3 @@
-
 .dragElement {
     margin-top: 5px;
     width: 100%;
@@ -10,7 +9,7 @@
     border-radius: 4px;
     border: solid 1px #0099cc;
 }
-.dragElement    .type {
-        color: #0099cc;
-        float: right
-    }
+.dragElement .type {
+    color: #0099cc;
+    float: right;
+}
