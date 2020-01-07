@@ -1,7 +1,19 @@
 import React, { Component } from 'react'
 import ReactEcharts from 'echarts-for-react';
+import ReactJson from 'react-json-view'
+import { Drawer } from 'antd'
 
 export class DropConfigChart extends Component {
+  componentDidUpdate(prevProps) {
+    const { visible, onChange, chartType } = this.props
+    if (prevProps.visible !== visible) {
+      if (chartType === 'line' || chartType === 'bar') {
+        onChange(this.getOption())
+      } else {
+        onChange(this.getPieOption())
+      }
+    }
+  }
 
   getOption() {
     const { dropConfig, chartType } = this.props;
@@ -64,16 +76,37 @@ export class DropConfigChart extends Component {
         }
       ]
     };
-
     return option;
   }
 
+  onClose = () => {
+    const { hanleCloseDrawer } = this.props
+    hanleCloseDrawer({
+      visible: false,
+    })
+  };
+
   render() {
-    const { chartType } = this.props
+    const { chartType, chartOption, visible, hanleCloseDrawer } = this.props
     return (
       <div>
-        {chartType === 'line' || chartType === 'bar' ? < ReactEcharts option={this.getOption()} notMerge={true} lazyUpdate={true} /> : ''}
-        {chartType === 'pie' ? <ReactEcharts option={this.getPieOption()} notMerge={true} lazyUpdate={true} /> : ''}
+        <div>
+          {chartType === 'line' || chartType === 'bar' ? < ReactEcharts option={this.getOption()} notMerge={true} lazyUpdate={true} /> : ''}
+          {chartType === 'pie' ? <ReactEcharts option={this.getPieOption()} notMerge={true} lazyUpdate={true} /> : ''}
+        </div>
+        <Drawer
+          title="option"
+          placement="right"
+          visible={visible}
+          onClose={hanleCloseDrawer}
+          width={600}
+        >
+          <ReactJson
+            src={chartOption}
+            theme="monokai"
+            displayDataTypes={false}
+          />
+        </Drawer>
       </div>
     )
   }
